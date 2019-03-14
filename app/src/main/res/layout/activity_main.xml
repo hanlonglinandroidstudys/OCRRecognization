@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_chooseid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="从相册选择一张身份证"/>
+    <Button
+        android:id="@+id/btn_searchid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查找身份证号"/>
+    <Button
+        android:id="@+id/btn_recognizeid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="识别数字"/>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
+        android:scaleType="centerInside"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/txt_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp" />
+</LinearLayout>
