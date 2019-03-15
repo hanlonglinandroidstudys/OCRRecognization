@@ -3,15 +3,35 @@
 
 # Sets the minimum version of CMake required to build the native library.
 
-cmake_minimum_required(VERSION 3.4.1)
+#cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.6)
 
-#添加include
-#include_directories(
-#        E:/software_install/Android/android-ndk-r19-windows-x86_64/android-ndk-r19/sysroot/usr/include
-#)
+# Enable C++11
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
-# Creates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative paths to its source code.
+#加载头文件
+include_directories( src/main/jni/native/jni/include)
+
+#设置变量
+set(opencvlib_DIR ${CMAKE_SOURCE_DIR}/src/main/jni/native/libs)
+
+#设置生成的so动态库最后输出的路径
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/libs/${ANDROID_ABI})
+
+#添加opencv库
+add_library(
+        lib_opencv
+        STATIC
+        IMPORTED
+)
+set_target_properties(
+        lib_opencv
+        PROPERTIES IMPORTED_LOCATION
+        ${opencvlib_DIR}/${ANDROID_ABI}/libopencv_java4.so
+)
+
+# lative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
@@ -22,7 +42,8 @@ add_library( # Sets the name of the library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             src/main/cpp/native-lib.cpp )
+             src/main/jni/native-lib.cpp
+             src/main/jni/Utils.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -46,4 +67,7 @@ target_link_libraries( # Specifies the target library.
 
                        # Links the target library to the log library
                        # included in the NDK.
-                       ${log-lib} )
+                       lib_opencv
+                       jnigraphics
+                       android
+                       ${log-lib})

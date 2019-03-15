@@ -10,13 +10,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
-            cmake {
-                cppFlags "-std=c++11 -frtti -fexceptions"
+            if(isCmake.toBoolean()){
+                cmake {
+                    cppFlags "-std=c++11 -frtti -fexceptions"
+                }
+            }else{
+                //ndk-build配置
+                ndk {
+                    abiFilters "x86","arm64-v8a","x86_64","armeabi-v7a"     //表示.so生成的目录
+                }
             }
-            //ndk-build配置
-            ndk {
-                abiFilters "x86","arm64-v8a","x86_64","armeabi-v7a"     //表示.so生成的目录
-            }
+        }
+
+        //自定jni目录
+        sourceSets.main{
+            jniLibs.srcDirs=['libs','src/main/jni/native/libs']  //设置运行时依赖so库的路径，这里如果不写上，运行时会报错找不到libopencv_java4.so
+            jni.srcDirs=[]   //设置禁止gradle生成Android.mk
         }
     }
     buildTypes {
@@ -26,12 +35,17 @@ android {
         }
     }
     externalNativeBuild {
-//        cmake {
-//            path "CMakeLists.txt"
-//        }
-        ndkBuild {
-            path file('src/main/jni/Android.mk')
+        if(isCmake.toBoolean()){
+            cmake {
+                path "CMakeLists.txt"
+            }
         }
+       else{
+            ndkBuild {
+                path file('src/main/jni/Android.mk')
+            }
+        }
+
     }
 }
 

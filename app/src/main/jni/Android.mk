@@ -22,6 +22,6 @@ LOCAL_CPP_FEATURES += exceptions
 LOCAL_C_INCLUDES+=  $(NDK_ROOT)/sources/cxx-stl/llvm-libc++/include
 LOCAL_SRC_FILES := native-lib.cpp Utils.cpp
 #重点需要引入系统库jnigraphics
-LOCAL_LDLIBS := -lm -llog -ljnigraphics
+LOCAL_LDLIBS := -lm -llog -ljnigraphics -landroid
 include $(BUILD_SHARED_LIBRARY)
 APP_STL := stlport_shared
