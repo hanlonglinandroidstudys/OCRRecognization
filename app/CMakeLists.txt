@@ -22,7 +22,7 @@ set(opencvlib_DIR ${CMAKE_SOURCE_DIR}/src/main/jni/native/libs)
 #添加opencv库
 add_library(
         lib_opencv
-        STATIC
+        SHARED
         IMPORTED
 )
 set_target_properties(

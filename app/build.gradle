@@ -38,6 +38,7 @@ android {
         if(isCmake.toBoolean()){
             cmake {
                 path "CMakeLists.txt"
+                //path "src/main/jni/CMakeLists.txt"
             }
         }
        else{
